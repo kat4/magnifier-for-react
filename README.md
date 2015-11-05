@@ -1,2 +1,2 @@
-# react-draggable-tabs
+# react-magnifier
 React draggable tabs
