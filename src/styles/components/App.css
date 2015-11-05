@@ -1,3 +1,24 @@
 .app-div {
   background-color: red;
 }
+
+.original-container {
+  height: 300px;
+  width: 300px;
+  background-image: url("https://cloud.githubusercontent.com/assets/9272148/10970044/fed6aaec-83c3-11e5-8b49-b4c03698100d.jpeg");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-color: black;
+  border-radius: 2px;
+  border-style: solid;
+}
+
+.zoom-area {
+  height: 50px;
+  width: 50px;
+  border-color: green;
+  border-radius: 1px;
+  border-style: solid;
+  position: absolute;
+}
