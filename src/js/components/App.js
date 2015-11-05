@@ -2,48 +2,75 @@ var React = require('react');
 
 var App = React.createClass({
 
+  getDefaultProps: function() {
+    return {
+      width: 550,
+      height: 300,
+      units: 'px',
+      backgroundColor: 'rgba(0,0,0,0.1)',
+      zoomLevel: 350,
+      backgroundImage: 'https://images.unsplash.com/photo-1445251836269-d158eaa028a6?ixlib=rb-0.3.5&q=80&fm=jpg&s=199ad024e77a5f179278e2ce0199e84e'
+    };
+  },
+
   getInitialState: function(){
     return {
       mouseX: 20,
       mouseY:20,
-      zoomLevel: 500
-    }
+    };
+  },
+
+  componentDidMount(){
+    var originalContainer = document.getElementById('react-magnifier-image');
+    this.setState({
+      offset:{
+        x:originalContainer.offsetLeft,
+        y:originalContainer.offsetTop
+      }
+    });
   },
 
   mouseOverHandler(e) {
-    console.log(e.clientX);
-    console.log(e.clientY);
+    console.log('sgsijg');
     this.setState({
-      mouseX: e.clientX,
-      mouseY: e.clientY
+      mouseX: e.clientX - this.state.offset.x,
+      mouseY: e.clientY - this.state.offset.y
     });
 
   },
 
   render: function () {
 
-    var zoomImgStyle = {
-      width: this.state.zoomLevel + '%',
-      height: this.state.zoomLevel + '%',
-      left: -this.state.mouseX*((this.state.zoomLevel/100)-1) + 'px',
-      top: -this.state.mouseY*((this.state.zoomLevel/100)-1) + 'px'
+    var wrapperStyle = {
+      width: this.props.width
     };
 
-    var zoomAreaStyles = {
-      left: this.state.mouseX-5,
-      top: this.state.mouseY-5
+    var zoomImgStyle = {
+      width: this.props.zoomLevel + '%',
+      height: this.props.zoomLevel + '%',
+      left: -this.state.mouseX*((this.props.zoomLevel/100)-1) + 'px',
+      top: -this.state.mouseY*((this.props.zoomLevel/100)-1) + 'px',
+      backgroundImage: 'url("' + this.props.backgroundImage + '")'
+    };
+
+    var normalImgStyle ={
+      width: this.props.width,
+      height: this.props.height,
+      backgroundColor: this.props.backgroundColor,
+      backgroundImage: 'url("' + this.props.backgroundImage + '")'
+    };
+
+    var zoomContainerStyle = {
+      width: this.props.width,
+      height: this.props.height,
+      backgroundColor: this.props.backgroundColor,
     };
 
     return(
-      <div className="wrapper">
-        <div className='original-container' onMouseMove={this.mouseOverHandler}>
-          <div className='zoom-area' style={zoomAreaStyles}>
-
-          </div>
-        </div>
-
-        <div className='img-container-zoom'>
-          <div className='zoom-image' style={zoomImgStyle}>
+      <div className="react-magnifier-wrapper" style={wrapperStyle}>
+        <div id='react-magnifier-image' className='react-magnifier-image' onMouseMove={this.mouseOverHandler} style={normalImgStyle}></div>
+        <div className='react-magnifier-zoom-container' style={zoomContainerStyle}>
+          <div className='react-magnifier-zoom-image' style={zoomImgStyle}>
           </div>
         </div>
       </div>
