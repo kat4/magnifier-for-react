@@ -1,1 +1,1 @@
-require('./components/App.css');
+require('./components/ReactMagnifier.css');
