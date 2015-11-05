@@ -1,6 +1,16 @@
 var React = require('react');
+var PropTypes = React.PropTypes;
 
 var App = React.createClass({
+
+  propTypes: {
+    width: PropTypes.number,
+    height: PropTypes.number,
+    units: PropTypes.string,
+    backgroundColor: PropTypes.string,
+    zoomLevel: PropTypes.number,
+    backgroundImage: PropTypes.string,
+  },
 
   getDefaultProps: function() {
     return {
